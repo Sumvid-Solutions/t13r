@@ -1,0 +1,14 @@
+[debug] [2026-02-11T01:05:12.414Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-11T01:05:12.416Z] > authorizing via signed-in user (cc@sumvid.ai)
+[debug] [2026-02-11T01:05:12.416Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-11T01:05:12.416Z] > authorizing via signed-in user (cc@sumvid.ai)
+[debug] [2026-02-11T01:05:12.429Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-11T01:05:12.429Z] > authorizing via signed-in user (cc@sumvid.ai)
+[debug] [2026-02-11T01:05:12.433Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-11T01:05:12.433Z] > authorizing via signed-in user (cc@sumvid.ai)
+[debug] [2026-02-11T01:05:12.434Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-11T01:05:12.434Z] > authorizing via signed-in user (cc@sumvid.ai)
+[debug] [2026-02-11T01:05:12.435Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-11T01:05:12.435Z] > authorizing via signed-in user (cc@sumvid.ai)
+[debug] [2026-02-11T01:05:12.435Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-11T01:05:12.435Z] > authorizing via signed-in user (cc@sumvid.ai)

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devanagari to IAST Transliterator</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Devanagari to IAST Transliterator</h1>
+    <p>Convert Sanskrit Devanagari text to International Alphabet of Sanskrit Transliteration</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="card-label">Devanagari Input</div>
+      <textarea
+        id="devanagari-input"
+        placeholder="Paste or type Devanagari text here..."
+        spellcheck="false"
+      ></textarea>
+      <div class="btn-row">
+        <button id="convert-btn" class="btn-primary">Convert to IAST</button>
+        <button id="sample-btn" class="btn-accent">Load Sample</button>
+        <button id="clear-btn" class="btn-secondary">Clear</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">
+        Sanskrit
+        <span class="legend">
+          <span class="accent-anudatta">Anudatta</span>
+          <span class="accent-svarita">Svarita</span>
+          <span class="accent-dirgha-svarita">Dirgha Svarita</span>
+        </span>
+      </div>
+      <div id="sanskrit-output" class="output-box output-sanskrit"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">
+        IAST Output
+        <span class="legend">
+          <span class="accent-anudatta">Anudatta</span>
+          <span class="accent-svarita">Svarita</span>
+          <span class="accent-dirgha-svarita">Dirgha Svarita</span>
+        </span>
+      </div>
+      <div id="iast-output" class="output-box"></div>
+      <div class="btn-row">
+        <button id="copy-btn" class="btn-secondary">Copy IAST</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>Devanagari to IAST Transliterator</footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

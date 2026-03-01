@@ -1,0 +1,281 @@
+@font-face {
+  font-family: "VijayaDV";
+  src: url("../fonts/VijayaDV.woff2") format("woff2"),
+       url("../fonts/VijayaDV.TTF") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: #f0f2f5;
+  color: #1a1a2e;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  width: 100%;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #fff;
+  padding: 2rem 1rem 1.5rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+header p {
+  margin-top: 0.4rem;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+main {
+  width: 100%;
+  max-width: 1200px;
+  padding: 2rem 1rem;
+  flex: 1;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.legend {
+  display: inline-flex;
+  gap: 0.5rem;
+  margin-left: auto;
+  font-size: 0.7rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+textarea {
+  width: 100%;
+  min-height: 180px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  resize: vertical;
+  font-family: "Noto Sans Devanagari", "Mangal", serif;
+  color: #1a1a2e;
+  transition: border-color 0.2s;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #0f3460;
+  box-shadow: 0 0 0 3px rgba(15, 52, 96, 0.12);
+}
+
+textarea::placeholder {
+  color: #9ca3af;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 1rem;
+}
+
+.btn-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: #0f3460;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1a4a7a;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.btn-secondary:hover {
+  background: #d1d5db;
+}
+
+.btn-accent {
+  background: #e0e7ff;
+  color: #1e40af;
+}
+
+.btn-accent:hover {
+  background: #c7d2fe;
+}
+
+.output-box {
+  min-height: 120px;
+  padding: 0.5rem 1rem;
+  background-color: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1.15rem;
+  color: #1a1a2e;
+  word-wrap: break-word;
+}
+
+.output-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.output-table tr {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.output-table tr:last-child {
+  border-bottom: none;
+}
+
+.line-num {
+  width: 2.5rem;
+  padding: 0 0.75rem 0 0;
+  text-align: right;
+  vertical-align: middle;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #9ca3af;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.line-content {
+  padding: 0;
+  line-height: 2.85;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.output-box:empty::before {
+  content: "Output will appear here...";
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.output-sanskrit .line-content {
+  font-family: "VijayaDV", "Noto Sans Devanagari", "Mangal", serif;
+  font-size: 1.3rem;
+  font-feature-settings: "mark" 1, "mkmk" 1, "abvm" 1, "blwm" 1, "liga" 1, "clig" 1;
+}
+
+.accent-anudatta {
+  background: #dbeafe;
+  color: #1e40af;
+  border-radius: 3px;
+  padding: 0 2px;
+  position: relative;
+  top: 0.2em;
+}
+
+.accent-svarita {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-radius: 3px;
+  padding: 0 2px;
+  position: relative;
+  top: -0.2em;
+}
+
+.accent-dirgha-svarita {
+  background: #fca5a5;
+  color: #7f1d1d;
+  border-radius: 3px;
+  padding: 0 2px;
+  font-weight: 600;
+  position: relative;
+  top: -0.35em;
+}
+
+.avagraha {
+  font-family: "VijayaDV", "Noto Sans Devanagari", serif;
+  color: #9ca3af;
+}
+
+.gum-kara {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 600;
+  color: #6d28d9;
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.3rem;
+  }
+
+  textarea {
+    min-height: 140px;
+    font-size: 1rem;
+  }
+
+  .output-box {
+    font-size: 1rem;
+  }
+
+  .btn-row {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
