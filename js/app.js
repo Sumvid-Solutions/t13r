@@ -269,6 +269,18 @@ function devanagariToIAST(text) {
     }
   }
 
+  // Jihvamuliya inherits accent from preceding syllable
+  tokens.forEach(function (t, i) {
+    if (t.type === 'jihvamuliya') {
+      for (var j = i - 1; j >= 0; j--) {
+        if (tokens[j].type === 'syllable' || tokens[j].type === 'gum-kara') {
+          t.accent = tokens[j].accent;
+          break;
+        }
+      }
+    }
+  });
+
   // Render tokens as HTML
   return tokens.map(function (t) {
     var escaped = escapeHtml(t.text);
@@ -281,7 +293,9 @@ function devanagariToIAST(text) {
       return '<span class="avagraha">' + escaped + '</span>';
     }
     if (t.type === 'jihvamuliya') {
-      return '<span class="jihvamuliya">&#xE305;</span>';
+      var cls = 'jihvamuliya';
+      if (t.accent) cls += ' accent-' + t.accent;
+      return '<span class="' + cls + '">&#xE305;</span>';
     }
     if (t.accent) {
       return '<span class="accent-' + t.accent + '">' + escaped + '</span>';
