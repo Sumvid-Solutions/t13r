@@ -281,7 +281,7 @@ function devanagariToIAST(text) {
       return '<span class="avagraha">' + escaped + '</span>';
     }
     if (t.type === 'jihvamuliya') {
-      return '<span class="jihvamuliya">' + escaped + '</span>';
+      return '<span class="jihvamuliya">&#xE305;</span>';
     }
     if (t.accent) {
       return '<span class="accent-' + t.accent + '">' + escaped + '</span>';
