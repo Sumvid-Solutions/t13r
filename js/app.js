@@ -60,18 +60,43 @@ const PRAATIHATA_SVARITA = '\uE32A';
 const PAADAVRUTTHA_SVARITA = '\uE32C';
 const PRASHLISHTA_SVARITA = '\uE32D';
 
+// Jihvāmūlīya / Upadhmānīya (half-visarga) — renders as ḥ in IAST
+const JIHVAMULIYA = '\uE305';        // Half-visarga before ka/kha (jihvāmūlīya) or pa/pha (upadhmānīya)
+
 // Sandhi / structural markers — invisible in VijayaDV font, skip in IAST
 const AAKARA_PRASHLESHA = '\uE300';  // āa-kāra prashlesha
-const VISARGA_LOPA = '\uE305';       // Visarga lopa marker
 const PADA_END = '\uE320';           // Pada boundary marker
 const PRASHLESHA = '\uE324';         // Prashlesha / poorvarupa marker
 const AARSHA_ELONGATION = '\uE33C';  // Ārsha elongation (input-only)
 const WORD_BOUNDARY = '\uE340';      // Word boundary marker
 
-// Anusvara Agama (gum-kara) variants — kept in IAST output as gṃ
-const GUM_LONG = '\uE321';    // GH_ANUSVARAGAMA — niranunaasika gakara (after dīrgha + samyoga)
-const GUM_SHORT = '\uE322';   // GUM_ANUSVARAGAMA — saanunaasika gakara (standard)
-const GUM_HEAVY = '\uE323';   // GGH_ANUSVARAGAMA — gakaradvaya (after hrasva + samyoga)
+// Additional structural PUA markers — invisible, skip in IAST
+const SANDHI_MARKER_E306 = '\uE306'; // Structural sandhi marker
+const SANDHI_MARKER_E308 = '\uE308'; // Structural sandhi marker
+const SANDHI_MARKER_E309 = '\uE309'; // Structural sandhi marker
+const ASSIMILATION_MARK = '\uE325';  // Assimilation / doubling marker
+const SANDHI_MARKER_E336 = '\uE336'; // Structural sandhi marker
+const SANDHI_MARKER_E337 = '\uE337'; // Structural sandhi marker
+const SANDHI_JOIN = '\uE338';        // Sandhi junction point
+const REPH_MARKER = '\uE33B';        // Word-initial / reph structural marker
+const SANDHI_MARKER_E33D = '\uE33D'; // Structural sandhi marker
+const KANDA_START = '\uE341';        // Kanda boundary marker
+const VERSE_START = '\uE342';        // Verse boundary marker
+const VERSE_COMMENT = '\uE343';      // Verse comment marker
+const SECTION_MARKER_E347 = '\uE347'; // Section marker
+const VAKYA_AVASANA = '\uE348';      // Sentence-end marker
+const PRAPATHAKA_START = '\uE34B';   // Prapāṭhaka boundary marker
+const MULAM_VERSE = '\uE34F';        // Mūlam verse text marker
+const PADA_START = '\uE351';         // Pada boundary start marker
+const ANUVAKA_START = '\uE352';      // Anuvāka boundary marker
+
+// PUA gakara — rendered as italic G in IAST
+const PUA_GAKARA = '\uE321';
+
+// Anusvara Agama (gum-kara) variants
+const G_ANUSVARAGAMA_PUA = '\uE321'; // g  58145 — niranunaasika gakara (after deergha + samyoga)
+const GUM = '\uE322';         // gṃ — saanunaasika gakara (standard)
+const GGUM = '\uE323';        // ggṃ — gakaradvaya (after hrasva + samyoga)
 
 function isConsonant(ch) {
   return ch in CONSONANTS;
@@ -136,9 +161,22 @@ function devanagariToIAST(text) {
     } else if (ch === UDATTA || ch === PRACHAYA) {
       i++;
 
-    // Anusvara Agama gum-kara variants — rendered as gṃ in italic
-    } else if (ch === GUM_LONG || ch === GUM_SHORT || ch === GUM_HEAVY) {
+    // Jihvāmūlīya / Upadhmānīya — render as VijayaDV glyph in IAST
+    } else if (ch === JIHVAMULIYA) {
+      tokens.push({ text: ch, type: 'jihvamuliya', accent: null });
+      i++;
+
+    // PUA gakara — rendered as italic G
+    } else if (ch === PUA_GAKARA) {
+      tokens.push({ text: 'g', type: 'gum-kara', accent: null });
+      i++;
+
+    // Anusvara Agama gum-kara variants
+    } else if (ch === GUM) {
       tokens.push({ text: 'g\u1E43', type: 'gum-kara', accent: null });
+      i++;
+    } else if (ch === GGUM) {
+      tokens.push({ text: 'gg\u1E43', type: 'gum-kara', accent: null });
       i++;
 
     // PRASHLESHA (E324) — rendered as Devanagari avagraha ऽ in IAST
@@ -241,6 +279,9 @@ function devanagariToIAST(text) {
     }
     if (t.type === 'avagraha') {
       return '<span class="avagraha">' + escaped + '</span>';
+    }
+    if (t.type === 'jihvamuliya') {
+      return '<span class="jihvamuliya">' + escaped + '</span>';
     }
     if (t.accent) {
       return '<span class="accent-' + t.accent + '">' + escaped + '</span>';
