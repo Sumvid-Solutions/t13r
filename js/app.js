@@ -403,8 +403,40 @@ function formatDevanagari(text) {
   }).join('');
 }
 
-function withLineNumbers(html) {
+function abbreviateLine(htmlContent) {
+  var tmp = document.createElement('div');
+  tmp.textContent = '';
+  tmp.innerHTML = htmlContent; // safe: htmlContent is our own generated HTML
+  var text = tmp.textContent;
+  if (!text.trim()) return '';
+
+  // Split on ||, |, danda (।), double-danda (॥), or hyphen — keep separators
+  var parts = text.split(/((?:\|\|?)|[।॥\-])/);
+  var result = [];
+  parts.forEach(function(part) {
+    if (/^(?:\|\|?|[।॥\-])$/.test(part)) {
+      result.push(part);
+    } else {
+      var words = part.trim().split(/\s+/).filter(Boolean).slice(0, 2);
+      if (words.length) result.push(words.join(' '));
+    }
+  });
+  return result.join(' ');
+}
+
+function withLineNumbers(html, showToggle) {
   var rows = html.split('\n').map(function (line, idx) {
+    if (showToggle) {
+      var abbr = escapeHtml(abbreviateLine(line));
+      return '<tr>' +
+        '<td class="line-check"><input type="checkbox" class="line-toggle" aria-label="Show hint for line ' + (idx + 1) + '"></td>' +
+        '<td class="line-num">' + (idx + 1) + '</td>' +
+        '<td class="line-content">' +
+          '<span class="full-line">' + line + '</span>' +
+          '<span class="abbr-line" hidden>' + abbr + '</span>' +
+        '</td>' +
+        '</tr>';
+    }
     return '<tr>' +
       '<td class="line-num">' + (idx + 1) + '</td>' +
       '<td class="line-content">' + line + '</td>' +
@@ -435,8 +467,8 @@ document.addEventListener('DOMContentLoaded', function () {
       outputEl.innerHTML = '';
       return;
     }
-    sanskritEl.innerHTML = withLineNumbers(formatDevanagari(input));
-    outputEl.innerHTML = withLineNumbers(devanagariToIAST(input));
+    sanskritEl.innerHTML = withLineNumbers(formatDevanagari(input), false);
+    outputEl.innerHTML = withLineNumbers(devanagariToIAST(input), true);
   }
 
   convertBtn.addEventListener('click', doConvert);
@@ -475,5 +507,13 @@ document.addEventListener('DOMContentLoaded', function () {
   sampleBtn.addEventListener('click', function () {
     inputEl.value = sampleText;
     doConvert();
+  });
+
+  outputEl.addEventListener('change', function (e) {
+    var cb = e.target;
+    if (!cb.classList.contains('line-toggle')) return;
+    var row = cb.closest('tr');
+    row.querySelector('.full-line').hidden = cb.checked;
+    row.querySelector('.abbr-line').hidden = !cb.checked;
   });
 });

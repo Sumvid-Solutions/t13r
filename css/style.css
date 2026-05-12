@@ -177,6 +177,26 @@ button:active {
   border-bottom: none;
 }
 
+.line-check {
+  width: 1.75rem;
+  padding: 0 0.25rem 0 0;
+  vertical-align: middle;
+  text-align: center;
+  user-select: none;
+}
+
+.line-check input[type="checkbox"] {
+  cursor: pointer;
+  width: 0.95rem;
+  height: 0.95rem;
+  accent-color: #0f3460;
+}
+
+.abbr-line {
+  color: #6b7280;
+  font-style: italic;
+}
+
 .line-num {
   width: 2.5rem;
   padding: 0 0.75rem 0 0;
