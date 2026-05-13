@@ -410,12 +410,15 @@ function abbreviateLineHtml(htmlContent) {
   var wordCount = 0;
   var inWord = false;
   var collecting = true;
+  var skipped = false; // words were omitted in current phrase
 
   tmp.childNodes.forEach(function(node) {
     if (node.nodeType === 1 /* ELEMENT_NODE */) {
       if (collecting) {
         out.appendChild(node.cloneNode(true));
         inWord = true;
+      } else {
+        skipped = true;
       }
     } else if (node.nodeType === 3 /* TEXT_NODE */) {
       var text = node.textContent;
@@ -423,8 +426,9 @@ function abbreviateLineHtml(htmlContent) {
       for (var j = 0; j < text.length; j++) {
         var ch = text[j];
         if (ch === '|' || ch === '।' || ch === '॥' || ch === '-') {
-          // Phrase boundary (danda / double-danda)
+          // Phrase boundary — emit ellipsis if words were skipped
           if (inWord) { wordCount++; inWord = false; }
+          if (skipped) { outText += ' .....'; skipped = false; }
           wordCount = 0;
           collecting = true;
           outText += ch;
@@ -436,6 +440,7 @@ function abbreviateLineHtml(htmlContent) {
           }
           if (collecting) outText += ch;
         } else {
+          if (!collecting) skipped = true;
           inWord = true;
           if (collecting) outText += ch;
         }
@@ -443,6 +448,9 @@ function abbreviateLineHtml(htmlContent) {
       if (outText) out.appendChild(document.createTextNode(outText));
     }
   });
+
+  // Ellipsis if line ends with skipped content (no trailing separator)
+  if (skipped) out.appendChild(document.createTextNode(' .....'));
 
   return out.innerHTML; // safe: built from cloned nodes of our own HTML
 }
