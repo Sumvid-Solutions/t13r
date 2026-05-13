@@ -193,8 +193,7 @@ button:active {
 }
 
 .abbr-line {
-  color: #6b7280;
-  font-style: italic;
+  opacity: 0.85;
 }
 
 .line-num {
