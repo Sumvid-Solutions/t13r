@@ -422,7 +422,7 @@ function abbreviateLineHtml(htmlContent) {
       var outText = '';
       for (var j = 0; j < text.length; j++) {
         var ch = text[j];
-        if (ch === '|' || ch === '।' || ch === '॥') {
+        if (ch === '|' || ch === '।' || ch === '॥' || ch === '-') {
           // Phrase boundary (danda / double-danda)
           if (inWord) { wordCount++; inWord = false; }
           wordCount = 0;
