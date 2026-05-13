@@ -484,6 +484,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const clearBtn = document.getElementById('clear-btn');
   const copyBtn = document.getElementById('copy-btn');
   const sampleBtn = document.getElementById('sample-btn');
+  const toggleAllLabel = document.getElementById('toggle-all-label');
+  const toggleAllCb = document.getElementById('toggle-all');
 
   const sampleText =
     'मेधा देवी जुषमाणा न आगा द्विश्वाची भद्रा सुमनस्यमाना।\n' +
@@ -491,15 +493,29 @@ document.addEventListener('DOMContentLoaded', function () {
     'त्वया जुष्ट ऋषि र्भवति देवि त्वया ब्रह्मा गतश्री रुत त्वया।\n' +
     'त्वया जुष्टश्चित्रँ विन्दते वसु सा नो जुषस्व द्रविणोन मेधे।।';
 
+  function syncToggleAll() {
+    var cbs = outputEl.querySelectorAll('.line-toggle');
+    if (!cbs.length) { toggleAllLabel.style.display = 'none'; return; }
+    var checkedCount = Array.from(cbs).filter(function(c) { return c.checked; }).length;
+    toggleAllCb.checked = checkedCount === cbs.length;
+    toggleAllCb.indeterminate = checkedCount > 0 && checkedCount < cbs.length;
+    toggleAllLabel.style.display = 'flex';
+  }
+
   function doConvert() {
     const input = inputEl.value.trim();
     if (!input) {
       sanskritEl.innerHTML = '';
       outputEl.innerHTML = '';
+      toggleAllLabel.style.display = 'none';
+      toggleAllCb.checked = false;
       return;
     }
     sanskritEl.innerHTML = withLineNumbers(formatDevanagari(input), false);
     outputEl.innerHTML = withLineNumbers(devanagariToIAST(input), true);
+    toggleAllCb.checked = false;
+    toggleAllCb.indeterminate = false;
+    syncToggleAll();
   }
 
   convertBtn.addEventListener('click', doConvert);
@@ -520,8 +536,21 @@ document.addEventListener('DOMContentLoaded', function () {
     inputEl.value = '';
     sanskritEl.innerHTML = '';
     outputEl.innerHTML = '';
+    toggleAllLabel.style.display = 'none';
+    toggleAllCb.checked = false;
     localStorage.removeItem('t13r-input');
     inputEl.focus();
+  });
+
+  toggleAllCb.addEventListener('change', function () {
+    var cbs = outputEl.querySelectorAll('.line-toggle');
+    cbs.forEach(function (cb) {
+      cb.checked = toggleAllCb.checked;
+      var row = cb.closest('tr');
+      row.querySelector('.full-line').hidden = cb.checked;
+      row.querySelector('.abbr-line').hidden = !cb.checked;
+    });
+    toggleAllCb.indeterminate = false;
   });
 
   copyBtn.addEventListener('click', function () {
@@ -546,5 +575,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var row = cb.closest('tr');
     row.querySelector('.full-line').hidden = cb.checked;
     row.querySelector('.abbr-line').hidden = !cb.checked;
+    syncToggleAll();
   });
 });
